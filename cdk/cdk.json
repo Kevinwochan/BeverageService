@@ -1,5 +1,5 @@
 {
-  "app": "npx ts-node --prefer-ts-exts bin/sc-iot-sim.ts",
+  "app": "npx ts-node --prefer-ts-exts bin/beverage-service.ts",
   "watch": {
     "include": [
       "**"

@@ -1,8 +1,8 @@
 {
-  "name": "sc-iot-sim",
+  "name": "beverage-service",
   "version": "0.1.0",
   "bin": {
-    "sc-iot-sim": "bin/sc-iot-sim.js"
+    "beverage-service": "bin/beverage-service.js"
   },
   "scripts": {
     "build": "tsc",
