@@ -2,7 +2,7 @@ import Image from 'next/image';
 import React from 'react';
 import { ActiveBeer } from '../types';
 
-const ActiveBeerCard: React.FC<ActiveBeer> = ({ brand, name, abv, description, temperature, fillLevel, image }) => {
+const ActiveBeerCard: React.FC<ActiveBeer> = ({ brand, name, abv, description, temperature, fillLevel, image, location }) => {
 
   const thermometerColor = (fillLevel: number) => {
     if (fillLevel < 25) return 'bg-rose-500';
@@ -48,11 +48,16 @@ const ActiveBeerCard: React.FC<ActiveBeer> = ({ brand, name, abv, description, t
           </div>
         )}
 
+
+        <span className="absolute left-1/2 -translate-x-1/2 bg-gray-100 text-gray-800 text-sm font-medium me-2 px-2 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">{abv}% ABV</span>
+
       </div>
       <div className='p-5 relative'>
-        <div className="text-lg font-bold mb-2">{name}</div>
-        <div className="font-bold">{brand}</div>
-        <div className="mt-2">{abv}% ABV</div>
+        <div className="text-base font-bold mb-2">{name}</div>
+        <div className="text-sm font-bold">{brand}</div>
+        <p className="text-gray-700 text-base">
+          {location}
+        </p>
         <p className="text-gray-700 text-base mt-2 truncate-text">
           {description}
         </p>

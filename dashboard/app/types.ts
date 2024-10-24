@@ -10,7 +10,7 @@ export interface ActiveBeer extends BeerMetadata {
     name: string;
     abv: number;
     description: string;
-    isActive: boolean;
+    isActive?: boolean;
     image?: string;
     fillLevel?: number;
     temperature?: number;

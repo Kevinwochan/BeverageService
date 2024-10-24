@@ -1,28 +1,22 @@
 import Image from 'next/image';
 import React from 'react';
-interface ActiveBeer {
-  brand: string;
-  name: string;
-  abv: number;
-  description: string;
-  fillLevel?: number;
-  temperature?: number;
-}
+import { ActiveBeer } from '../types';
 
-const BeerCard: React.FC<ActiveBeer> = ({ brand, name, abv, description, temperature, fillLevel, image }) => {
+const BeerCard: React.FC<ActiveBeer> = ({ brand, name, abv, description, image }) => {
   return (
-    <div className="bg-white rounded-lg shadow w-1/5 relative">
+    <div className="bg-white rounded-lg shadow w-1/6 relative">
+
+      <span className="absolute top-1 left-1/2 -translate-x-1/2 bg-gray-100 text-gray-800 text-sm font-medium me-2 px-2 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">{abv}% ABV</span>
 
       <Image
         src={image ? `/images/${image}` : '/images/default.png'}
         alt={name}
-        width={3500}
-        height={500}
+        width={220}
+        height={200}
       />
       <div className='p-5 relative'>
         <div className="text-xl font-bold mb-2">{name}</div>
         <div className="text-l">{brand}</div>
-        <div className="mt-2">{abv}% ABV</div>
         <p className="text-gray-700 text-base mt-2 truncate-text">
           {description}
         </p>
