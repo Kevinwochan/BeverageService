@@ -6,19 +6,12 @@ export class BeverageServiceStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-
     // Create DynamoDB table
     const table = new dynamodb.TableV2(this, 'BeerTable', {
-      partitionKey: { name: 'name', type: dynamodb.AttributeType.STRING },
-      globalSecondaryIndexes: [
-        {
-          indexName: "device-id-index",
-          partitionKey: {
-            name: 'device_id',
-            type: dynamodb.AttributeType.STRING
-          }
-        }
-      ],
+      partitionKey: {
+        name: 'device_id',
+        type: dynamodb.AttributeType.STRING
+      },
       removalPolicy: cdk.RemovalPolicy.DESTROY,
     });
 
@@ -54,7 +47,7 @@ export class BeverageServiceStack extends cdk.Stack {
       },
       timeout: cdk.Duration.seconds(30),
       bundling: {
-        externalModules: ['aws-sdk']
+        externalModules: ['@aws-sdk/client-dynamodb', '@aws-sdk/util-dynamodb']
       }
     })
     table.grantReadWriteData(iotHandler);
@@ -68,10 +61,10 @@ export class BeverageServiceStack extends cdk.Stack {
     const iotServicePrincipal = new cdk.aws_iam.ServicePrincipal('iot.amazonaws.com');
     iotHandler.grantInvoke(iotServicePrincipal);
 
-    // topic name is 'sensor/#', should match the topic in device types
+    // topic name is 'BeerSensor/Cafeteria/1', should match the topic in device types
     const iotRule = new cdk.aws_iot.CfnTopicRule(this, 'TopicRule', {
       topicRulePayload: {
-        sql: "SELECT * FROM 'sensor/#'",
+        sql: "SELECT *, topic(2) as location, topic(3) as device_id FROM 'BeerSensor/#'",
         actions: [
           {
             lambda: {
