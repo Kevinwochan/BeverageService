@@ -17,7 +17,7 @@ const BeerCard: React.FC<ActiveBeer> = ({ brand, name, abv, description, tempera
         src={image ? `/images/${image}` : '/images/default.png'}
         alt={name}
         width={3500}
-        height={3500}
+        height={500}
       />
       <div className='p-5 relative'>
         <div className="text-xl font-bold mb-2">{name}</div>

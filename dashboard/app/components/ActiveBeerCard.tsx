@@ -13,30 +13,42 @@ const ActiveBeerCard: React.FC<ActiveBeer> = ({ brand, name, abv, description, t
 
   return (
     <div className="bg-white rounded-lg shadow w-1/5 relative">
-      {(temperature !== undefined || fillLevel !== undefined) && (
-        <div className="absolute top-0 right-0 py-3 m-1">
-          {temperature !== undefined && (
-            <div className="text-lg font-bold text-white">{temperature}°C</div>
-          )}
-
+      <div className='flex flex-row h-60 gap-3'>
+        {fillLevel &&
+          <div className='self-center'>
+            <div className="relative w-10 bg-gray-200 h-60">
+              <div className="absolute inset-0 flex flex-col justify-end items-center overflow-hidden ">
+                <div
+                  className={`h-full w-full bg-gray-200"`}
+                  style={{ height: `${fillLevel}%` }}
+                >
+                  <div className={`${thermometerColor(fillLevel)} flex items-center justify-center h-full w-full text-white font-bold"`}>
+                    {fillLevel}%
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        }
+        <div className='self-end'>
+          <Image
+            src={image ? `/images/${image}` : '/images/default.png'}
+            alt="Progress Bar Image"
+            height={400}
+            width={3500}
+          />
         </div>
-      )}
-      {fillLevel && <div className="w-full bg-gray-200">
-        <div
-          className={`${thermometerColor(fillLevel)} text-xs font-medium text-blue-100 text-center p-0.5 leading-none`}
 
-          style={{ width: `${fillLevel}%` }}>
-          {fillLevel}%</div>
-      </div>}
+        {(temperature !== undefined || fillLevel !== undefined) && (
+          <div className="absolute top-0 right-0 p-1">
+            {temperature !== undefined && (
+              <div className="text-lg font-bold text-black">{temperature}°C</div>
+            )}
 
-      <Image
-        src={image ? `/images/${image}` : '/images/default.png'}
-        alt={name}
-        width={3500}
-        height={3500}
-      />
+          </div>
+        )}
 
-
+      </div>
       <div className='p-5 relative'>
         <div className="text-lg font-bold mb-2">{name}</div>
         <div className="font-bold">{brand}</div>
