@@ -24,7 +24,7 @@ const mockBeerMetadata: BeerMetadata[] = [
   },
   {
     brand: "Countryside Ales",
-    name: "Harvest Moon Wheat Beer",
+    name: "Harvest Moon Wheat",
     abv: 5.0,
     description: "Smooth wheat beer with hints of banana and clove, inspired by traditional Bavarian styles."
   },
@@ -63,7 +63,7 @@ const mockActiveBeerData: ActiveBeer[] = [
   },
   {
     brand: "Countryside Ales",
-    name: "Harvest Moon Wheat Beer",
+    name: "Harvest Moon Beer",
     abv: 5.0,
     description: "Smooth wheat beer with hints of banana and clove, inspired by traditional Bavarian styles.",
     fillLevel: 45,
@@ -76,9 +76,9 @@ const Home: React.FC = () => {
 
   return (
     <Layout>
-      <h1 className="text-4xl font-bold mb-8">On Tap</h1>
+      <h1 className="text-4xl font-bold mb-8">On Tap 🚰</h1>
       <BeerSection beers={mockActiveBeerData} isActiveBeer />
-      <h1 className="text-4xl font-bold mb-8">Previous Beers</h1>
+      <h1 className="text-4xl font-bold mb-8">Previous Bevvies</h1>
       <BeerSection beers={mockBeerMetadata} />
     </Layout>
   );
@@ -86,6 +86,7 @@ const Home: React.FC = () => {
 
 export default Home;
 
+/*
 Here's the updated DynamoDB record format with a `device_id` attribute added and set to `-1` for each item:
 
 ```json
@@ -167,7 +168,7 @@ Here's the updated DynamoDB record format with a `device_id` attribute added and
       "S": "Countryside Ales"
     },
     "name": {
-      "S": "Harvest Moon Wheat Beer"
+      "S": "Harvest Moon Beer"
     },
     "abv": {
       "N": "5.0"
@@ -186,3 +187,4 @@ Here's the updated DynamoDB record format with a `device_id` attribute added and
 ```
 
 In this updated format, each item now includes a `device_id` attribute with a default value of `-1`. The `device_id` attribute is wrapped in an object with the type `"N"` for a number.
+*/

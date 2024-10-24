@@ -10,15 +10,14 @@ interface BeerSectionProps {
 
 const BeerSection: React.FC<BeerSectionProps> = ({ beers, isActiveBeer }) => {
   return (
-
-    < section className="mb-8" >
+    <section className="mb-8" >
       {
         isActiveBeer ?
-          <div className="flex flex-wrap -mx-4 gap-12 justify-center">
+          <div className="flex flex-wrap  gap-12 justify-between">
             {beers.map((beer, index) => (<ActiveBeerCard key={index} {...beer} />))}
           </div >
           : (
-            <div className="flex flex-wrap -mx-4 gap-12">
+            <div className="flex flex-wrap gap-12">
               {
                 beers.map((beer, index) => (<BeerCard key={index} {...beer} />))}
             </div>

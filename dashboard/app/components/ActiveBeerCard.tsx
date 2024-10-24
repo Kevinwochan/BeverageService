@@ -14,46 +14,50 @@ interface ActiveBeer {
 const ActiveBeerCard: React.FC<ActiveBeer> = ({ brand, name, abv, description, temperature, fillLevel }) => {
 
   const thermometerColor = (fillLevel: number) => {
-    if (fillLevel < 25) return 'bg-rose-300';
-    if (fillLevel < 50) return 'bg-amber-300';
-    if (fillLevel < 75) return 'bg-orange-300';
-    return 'bg-gray-200';
+    if (fillLevel < 25) return 'bg-rose-500';
+    if (fillLevel < 50) return 'bg-orange-500';
+    if (fillLevel < 75) return 'bg-amber-500';
+    return 'bg-gray-400';
   }
-  console.log(name)
 
   return (
-    <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 relative w-1/6">
+    <div className="bg-white rounded-lg shadow w-1/5 relative">
       {(temperature !== undefined || fillLevel !== undefined) && (
-        <div className="absolute top-0 right-0 p-2 m-2">
+        <div className="absolute top-0 right-0 py-3 m-1">
           {temperature !== undefined && (
             <div className="text-lg font-bold text-white">{temperature}°C</div>
           )}
-          {fillLevel !== undefined && (
-            <div className="w-7 h-48 border-2 border-gray-300 relative bg-white">
-              <div
-                className={`absolute bottom-0 left-0 right-0 ${thermometerColor(fillLevel)}`}
-                style={{ height: `${fillLevel}%` }}
-              ></div>
-              <p className='absolute top-1/2 text-xs' style={{ lineHeight: 0 }}>{fillLevel}%</p>
-            </div>
-          )}
+
         </div>
       )}
+      {fillLevel && <div className="w-full bg-gray-200">
+        <div
+          className={`${thermometerColor(fillLevel)} text-xs font-medium text-blue-100 text-center p-0.5 leading-none`}
 
+          style={{ width: `${fillLevel}%` }}>
+          {fillLevel}%</div>
+      </div>}
       <Image
         src={DefaultBeerImage}
         alt={name}
-        className="w-xs"
       />
 
-      <div className='p-5'>
-        <div className="text-xl font-bold mb-2">{name}</div>
-        <div className="text-l">{brand}</div>
+
+      <div className='p-5 relative'>
+        <div className="text-lg font-bold mb-2">{name}</div>
+        <div className="font-bold">{brand}</div>
         <div className="mt-2">{abv}% ABV</div>
         <p className="text-gray-700 text-base mt-2">
           {description}
         </p>
       </div>
+
+      <a href="#" class="m-5 inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+        Order more
+        <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
+        </svg>
+      </a>
     </div>
 
   );

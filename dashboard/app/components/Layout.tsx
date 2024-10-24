@@ -6,12 +6,12 @@ interface LayoutProps {
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => (
-  <div className="flex min-h-screen">
+  <>
     <Sidebar />
-    <main className="flex-grow p-8">
+    <main className="py-10 px-20 sm:ml-64">
       {children}
     </main>
-  </div>
+  </>
 );
 
 export default Layout;
