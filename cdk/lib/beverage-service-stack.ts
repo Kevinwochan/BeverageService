@@ -8,10 +8,17 @@ export class BeverageServiceStack extends cdk.Stack {
 
 
     // Create DynamoDB table
-    const table = new dynamodb.Table(this, 'IoTDataTable', {
-      partitionKey: { name: 'device_id', type: dynamodb.AttributeType.STRING },
-      sortKey: { name: 'timestamp', type: dynamodb.AttributeType.STRING },
-      billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
+    const table = new dynamodb.TableV2(this, 'BeerTable', {
+      partitionKey: { name: 'name', type: dynamodb.AttributeType.STRING },
+      globalSecondaryIndexes: [
+        {
+          indexName: "device-id-index",
+          partitionKey: {
+            name: 'device_id',
+            type: dynamodb.AttributeType.STRING
+          }
+        }
+      ],
       removalPolicy: cdk.RemovalPolicy.DESTROY,
     });
 

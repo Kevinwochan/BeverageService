@@ -66,14 +66,8 @@ const mockActiveBeerData: ActiveBeer[] = [
     name: "Harvest Moon Wheat Beer",
     abv: 5.0,
     description: "Smooth wheat beer with hints of banana and clove, inspired by traditional Bavarian styles.",
-    fillLevel: 45
-  },
-  {
-    brand: "Peak Brewers",
-    name: "Summit Stout",
-    abv: 7.2,
-    description: "Rich and full-bodied stout with deep roasted flavors and a hint of dark chocolate.",
-    temperature: 8
+    fillLevel: 45,
+    temperature: 5
   }
 ];
 
@@ -91,3 +85,104 @@ const Home: React.FC = () => {
 };
 
 export default Home;
+
+Here's the updated DynamoDB record format with a `device_id` attribute added and set to `-1` for each item:
+
+```json
+[
+  {
+    "device_id": {
+      "N": "-1"
+    },
+    "brand": {
+      "S": "Mountain Culture"
+    },
+    "name": {
+      "S": "Status Quo Pale Ale"
+    },
+    "abv": {
+      "N": "5.2"
+    },
+    "description": {
+      "S": "A crisp and refreshing pale ale with a perfect balance of malt and hops."
+    },
+    "fillLevel": {
+      "N": "75"
+    },
+    "temperature": {
+      "N": "4"
+    }
+  },
+  {
+    "device_id": {
+      "N": "-1"
+    },
+    "brand": {
+      "S": "Coastal Brews"
+    },
+    "name": {
+      "S": "Ocean Breeze Lager"
+    },
+    "abv": {
+      "N": "4.8"
+    },
+    "description": {
+      "S": "Light and smooth lager with subtle notes of citrus, perfect for a day at the beach."
+    },
+    "fillLevel": {
+      "N": "60"
+    },
+    "temperature": {
+      "N": "3"
+    }
+  },
+  {
+    "device_id": {
+      "N": "-1"
+    },
+    "brand": {
+      "S": "Urban Hops"
+    },
+    "name": {
+      "S": "City Nights IPA"
+    },
+    "abv": {
+      "N": "6.5"
+    },
+    "description": {
+      "S": "Bold and hoppy IPA with tropical fruit flavors and a strong bitter finish."
+    },
+    "fillLevel": {
+      "N": "90"
+    },
+    "temperature": {
+      "N": "5"
+    }
+  },
+  {
+    "device_id": {
+      "N": "-1"
+    },
+    "brand": {
+      "S": "Countryside Ales"
+    },
+    "name": {
+      "S": "Harvest Moon Wheat Beer"
+    },
+    "abv": {
+      "N": "5.0"
+    },
+    "description": {
+      "S": "Smooth wheat beer with hints of banana and clove, inspired by traditional Bavarian styles."
+    },
+    "fillLevel": {
+      "N": "45"
+    },
+    "temperature": {
+      "N": "5"
+    }
+  }
+]
+```
+
+In this updated format, each item now includes a `device_id` attribute with a default value of `-1`. The `device_id` attribute is wrapped in an object with the type `"N"` for a number.
