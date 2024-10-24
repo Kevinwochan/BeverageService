@@ -57,20 +57,28 @@ export class BeverageServiceStack extends cdk.Stack {
     iotHandler.grantInvoke(iotRuleRole);
     table.grantReadWriteData(iotHandler);
 
+    const log = new cdk.aws_logs.LogGroup(this, 'ApiLogGroup');
+    log.grantWrite(iotRuleRole);
+
 
     // topic name is 'sensor/#', should match the topic in device types
     new cdk.aws_iot.CfnTopicRule(this, 'TopicRule', {
       topicRulePayload: {
-        sql: "SELECT timestamp() as timestamp, topic(1) as sensor_type, topic(2) as location FROM 'sensor/#'",
+        sql: "SELECT * FROM 'sensor/#'",
         actions: [
           {
             lambda: {
               functionArn: iotHandler.functionArn
             }
           }
-        ]
+        ],
+        errorAction: {
+          cloudwatchLogs: {
+            logGroupName: log.logGroupName,
+            roleArn: iotRuleRole.roleArn
+          }
+        }
       }
     })
-
   }
 }
