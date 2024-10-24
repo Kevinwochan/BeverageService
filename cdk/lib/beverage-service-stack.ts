@@ -26,16 +26,18 @@ export class BeverageServiceStack extends cdk.Stack {
     const api = new cdk.aws_lambda_nodejs.NodejsFunction(this, 'ApiFunction', {
       runtime: cdk.aws_lambda.Runtime.NODEJS_18_X,
       handler: 'handler',
-      entry: 'lambdas/Api/index.ts',
+      entry: 'lambdas/Api/index.js',
       environment: {
         TABLE_NAME: table.tableName,
       },
       timeout: cdk.Duration.seconds(30),
       bundling: {
-        externalModules: ['aws-sdk']
+        externalModules: ['@aws-sdk/client-dynamodb', '@aws-sdk/util-dynamodb']
       }
     })
-    api.addFunctionUrl();
+    api.addFunctionUrl({
+      authType: cdk.aws_lambda.FunctionUrlAuthType.NONE
+    });
     table.grantReadData(api);
 
 
@@ -46,7 +48,7 @@ export class BeverageServiceStack extends cdk.Stack {
     const iotHandler = new cdk.aws_lambda_nodejs.NodejsFunction(this, 'IotHandlerFunction', {
       runtime: cdk.aws_lambda.Runtime.NODEJS_18_X,
       handler: 'handler',
-      entry: 'lambdas/IotHandler/index.ts',
+      entry: 'lambdas/IotHandler/index.js',
       environment: {
         TABLE_NAME: table.tableName,
       },

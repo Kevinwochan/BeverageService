@@ -1,15 +1,10 @@
-import React from 'react';
+'use client'
+import React, { useEffect, useState } from 'react';
 import BeerSection from './components/BeerSection';
 import Layout from './components/Layout';
 import { ActiveBeer, BeerMetadata } from './types';
 
 const mockBeerMetadata: BeerMetadata[] = [
-  {
-    brand: "Mountain Culture",
-    name: "Status Quo Pale Ale",
-    abv: 5.2,
-    description: "A crisp and refreshing pale ale with a perfect balance of malt and hops."
-  },
   {
     brand: "Coastal Brews",
     name: "Ocean Breeze Lager",
@@ -36,50 +31,35 @@ const mockBeerMetadata: BeerMetadata[] = [
   }
 ];
 
-const mockActiveBeerData: ActiveBeer[] = [
-  {
-    brand: "Mountain Culture",
-    name: "Status Quo Pale Ale",
-    abv: 5.2,
-    description: "A crisp and refreshing pale ale with a perfect balance of malt and hops.",
-    fillLevel: 75,
-    temperature: 4
-  },
-  {
-    brand: "Coastal Brews",
-    name: "Ocean Breeze Lager",
-    abv: 4.8,
-    description: "Light and smooth lager with subtle notes of citrus, perfect for a day at the beach.",
-    fillLevel: 60,
-    temperature: 3
-  },
-  {
-    brand: "Urban Hops",
-    name: "City Nights IPA",
-    abv: 6.5,
-    description: "Bold and hoppy IPA with tropical fruit flavors and a strong bitter finish.",
-    fillLevel: 90,
-    temperature: 5
-  },
-  {
-    brand: "Countryside Ales",
-    name: "Harvest Moon Beer",
-    abv: 5.0,
-    description: "Smooth wheat beer with hints of banana and clove, inspired by traditional Bavarian styles.",
-    fillLevel: 45,
-    temperature: 5
-  }
-];
 
 
 const Home: React.FC = () => {
 
+  const [onTapBeers, setOnTapBeers] = useState(null);
+  const [previousBeers, setPreviousBeers] = useState(mockBeerMetadata);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://w62riqzhdnugc4zyhbuqra3hzm0xywny.lambda-url.ap-southeast-2.on.aws/');
+        const jsonData = await response.json();
+        setOnTapBeers(jsonData.filter((beer: ActiveBeer) => beer.isActive));
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    const intervalId = setInterval(fetchData, 1000); // Poll every 5 seconds
+
+    return () => clearInterval(intervalId); // Clean up interval on component unmount
+  }, []);
+
   return (
     <Layout>
       <h1 className="text-4xl font-bold mb-8">On Tap 🚰</h1>
-      <BeerSection beers={mockActiveBeerData} isActiveBeer />
-      <h1 className="text-4xl font-bold mb-8">Previous Bevvies</h1>
-      <BeerSection beers={mockBeerMetadata} />
+      {onTapBeers ? <BeerSection beers={onTapBeers} isActiveBeer /> : <p>Loading...</p>}
+      <h1 className="text-4xl font-bold mb-8">Previous Bevvies 🍻</h1>
+      <BeerSection beers={previousBeers} />
     </Layout>
   );
 };

@@ -1,10 +1,10 @@
 import React from 'react';
-import { ActiveBeer } from '../types';
+import { ActiveBeer, BeerMetadata } from '../types';
 import ActiveBeerCard from './ActiveBeerCard';
 import BeerCard from './BeerCard';
 
 interface BeerSectionProps {
-  beers: ActiveBeer[];
+  beers: ActiveBeer[] | BeerMetadata[];
   isActiveBeer?: boolean;
 }
 

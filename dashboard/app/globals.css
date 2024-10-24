@@ -20,6 +20,24 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.truncate-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  /* Add other vendor prefixes */
+  display: -moz-box;
+  -moz-line-clamp: 3;
+  -moz-box-orient: vertical;
+
+  display: box;
+  line-clamp: 3;
+  box-orient: vertical;
+  min-height: calc(1em * 1.2 * 3);
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
