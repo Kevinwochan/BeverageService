@@ -71,7 +71,7 @@ const Home: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('https://w62riqzhdnugc4zyhbuqra3hzm0xywny.lambda-url.ap-southeast-2.on.aws/');
+        const response = await fetch('https://i4rnvp74o77q546of5ya56eqty0vmqhu.lambda-url.ap-southeast-2.on.aws/');
         const jsonData = await response.json();
         setOnTapBeers(jsonData.filter((beer: ActiveBeer) => beer.isActive));
         setPreviousBeers(mockBeerMetadata);

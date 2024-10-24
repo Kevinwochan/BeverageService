@@ -33,7 +33,6 @@ export class BeverageServiceStack extends cdk.Stack {
     });
     table.grantReadData(api);
 
-
     /*
      Iot Rule Role
      This role is used to allow IoT Core to write to S3 Hot bucket
